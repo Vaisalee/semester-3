@@ -1,0 +1,555 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "provenance": [],
+      "authorship_tag": "ABX9TyNP9n8l4QY/ckFrRy0UvyvR",
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    },
+    "language_info": {
+      "name": "python"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/Vaisalee/semester-3/blob/main/final%20project\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": 1,
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "GJODdMu0V0-B",
+        "outputId": "b23d997c-b836-4712-db85-e5a8e3bf4123"
+      },
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Requirement already satisfied: pandas in /usr/local/lib/python3.12/dist-packages (2.2.2)\n",
+            "Requirement already satisfied: numpy>=1.26.0 in /usr/local/lib/python3.12/dist-packages (from pandas) (2.0.2)\n",
+            "Requirement already satisfied: python-dateutil>=2.8.2 in /usr/local/lib/python3.12/dist-packages (from pandas) (2.9.0.post0)\n",
+            "Requirement already satisfied: pytz>=2020.1 in /usr/local/lib/python3.12/dist-packages (from pandas) (2025.2)\n",
+            "Requirement already satisfied: tzdata>=2022.7 in /usr/local/lib/python3.12/dist-packages (from pandas) (2025.2)\n",
+            "Requirement already satisfied: six>=1.5 in /usr/local/lib/python3.12/dist-packages (from python-dateutil>=2.8.2->pandas) (1.17.0)\n"
+          ]
+        }
+      ],
+      "source": [
+        "pip install pandas"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "pip install numpy"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "spbs66NjV6IR",
+        "outputId": "0a691822-3a14-4f21-b44f-7c01cf19b06f"
+      },
+      "execution_count": 2,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Requirement already satisfied: numpy in /usr/local/lib/python3.12/dist-packages (2.0.2)\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "pip install scikit-learn"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "kAxY5xDUV_ag",
+        "outputId": "105be82a-8084-458e-fa82-feafa75e6cc0"
+      },
+      "execution_count": 3,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Requirement already satisfied: scikit-learn in /usr/local/lib/python3.12/dist-packages (1.6.1)\n",
+            "Requirement already satisfied: numpy>=1.19.5 in /usr/local/lib/python3.12/dist-packages (from scikit-learn) (2.0.2)\n",
+            "Requirement already satisfied: scipy>=1.6.0 in /usr/local/lib/python3.12/dist-packages (from scikit-learn) (1.16.2)\n",
+            "Requirement already satisfied: joblib>=1.2.0 in /usr/local/lib/python3.12/dist-packages (from scikit-learn) (1.5.2)\n",
+            "Requirement already satisfied: threadpoolctl>=3.1.0 in /usr/local/lib/python3.12/dist-packages (from scikit-learn) (3.6.0)\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "pip install tensorflow"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "jxvajdfSWCq5",
+        "outputId": "455f0c8a-e7d7-4ab3-e250-cc0f6fa55d54"
+      },
+      "execution_count": 4,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Requirement already satisfied: tensorflow in /usr/local/lib/python3.12/dist-packages (2.19.0)\n",
+            "Requirement already satisfied: absl-py>=1.0.0 in /usr/local/lib/python3.12/dist-packages (from tensorflow) (1.4.0)\n",
+            "Requirement already satisfied: astunparse>=1.6.0 in /usr/local/lib/python3.12/dist-packages (from tensorflow) (1.6.3)\n",
+            "Requirement already satisfied: flatbuffers>=24.3.25 in /usr/local/lib/python3.12/dist-packages (from tensorflow) (25.9.23)\n",
+            "Requirement already satisfied: gast!=0.5.0,!=0.5.1,!=0.5.2,>=0.2.1 in /usr/local/lib/python3.12/dist-packages (from tensorflow) (0.6.0)\n",
+            "Requirement already satisfied: google-pasta>=0.1.1 in /usr/local/lib/python3.12/dist-packages (from tensorflow) (0.2.0)\n",
+            "Requirement already satisfied: libclang>=13.0.0 in /usr/local/lib/python3.12/dist-packages (from tensorflow) (18.1.1)\n",
+            "Requirement already satisfied: opt-einsum>=2.3.2 in /usr/local/lib/python3.12/dist-packages (from tensorflow) (3.4.0)\n",
+            "Requirement already satisfied: packaging in /usr/local/lib/python3.12/dist-packages (from tensorflow) (25.0)\n",
+            "Requirement already satisfied: protobuf!=4.21.0,!=4.21.1,!=4.21.2,!=4.21.3,!=4.21.4,!=4.21.5,<6.0.0dev,>=3.20.3 in /usr/local/lib/python3.12/dist-packages (from tensorflow) (5.29.5)\n",
+            "Requirement already satisfied: requests<3,>=2.21.0 in /usr/local/lib/python3.12/dist-packages (from tensorflow) (2.32.4)\n",
+            "Requirement already satisfied: setuptools in /usr/local/lib/python3.12/dist-packages (from tensorflow) (75.2.0)\n",
+            "Requirement already satisfied: six>=1.12.0 in /usr/local/lib/python3.12/dist-packages (from tensorflow) (1.17.0)\n",
+            "Requirement already satisfied: termcolor>=1.1.0 in /usr/local/lib/python3.12/dist-packages (from tensorflow) (3.1.0)\n",
+            "Requirement already satisfied: typing-extensions>=3.6.6 in /usr/local/lib/python3.12/dist-packages (from tensorflow) (4.15.0)\n",
+            "Requirement already satisfied: wrapt>=1.11.0 in /usr/local/lib/python3.12/dist-packages (from tensorflow) (1.17.3)\n",
+            "Requirement already satisfied: grpcio<2.0,>=1.24.3 in /usr/local/lib/python3.12/dist-packages (from tensorflow) (1.75.1)\n",
+            "Requirement already satisfied: tensorboard~=2.19.0 in /usr/local/lib/python3.12/dist-packages (from tensorflow) (2.19.0)\n",
+            "Requirement already satisfied: keras>=3.5.0 in /usr/local/lib/python3.12/dist-packages (from tensorflow) (3.10.0)\n",
+            "Requirement already satisfied: numpy<2.2.0,>=1.26.0 in /usr/local/lib/python3.12/dist-packages (from tensorflow) (2.0.2)\n",
+            "Requirement already satisfied: h5py>=3.11.0 in /usr/local/lib/python3.12/dist-packages (from tensorflow) (3.15.0)\n",
+            "Requirement already satisfied: ml-dtypes<1.0.0,>=0.5.1 in /usr/local/lib/python3.12/dist-packages (from tensorflow) (0.5.3)\n",
+            "Requirement already satisfied: wheel<1.0,>=0.23.0 in /usr/local/lib/python3.12/dist-packages (from astunparse>=1.6.0->tensorflow) (0.45.1)\n",
+            "Requirement already satisfied: rich in /usr/local/lib/python3.12/dist-packages (from keras>=3.5.0->tensorflow) (13.9.4)\n",
+            "Requirement already satisfied: namex in /usr/local/lib/python3.12/dist-packages (from keras>=3.5.0->tensorflow) (0.1.0)\n",
+            "Requirement already satisfied: optree in /usr/local/lib/python3.12/dist-packages (from keras>=3.5.0->tensorflow) (0.17.0)\n",
+            "Requirement already satisfied: charset_normalizer<4,>=2 in /usr/local/lib/python3.12/dist-packages (from requests<3,>=2.21.0->tensorflow) (3.4.4)\n",
+            "Requirement already satisfied: idna<4,>=2.5 in /usr/local/lib/python3.12/dist-packages (from requests<3,>=2.21.0->tensorflow) (3.11)\n",
+            "Requirement already satisfied: urllib3<3,>=1.21.1 in /usr/local/lib/python3.12/dist-packages (from requests<3,>=2.21.0->tensorflow) (2.5.0)\n",
+            "Requirement already satisfied: certifi>=2017.4.17 in /usr/local/lib/python3.12/dist-packages (from requests<3,>=2.21.0->tensorflow) (2025.10.5)\n",
+            "Requirement already satisfied: markdown>=2.6.8 in /usr/local/lib/python3.12/dist-packages (from tensorboard~=2.19.0->tensorflow) (3.9)\n",
+            "Requirement already satisfied: tensorboard-data-server<0.8.0,>=0.7.0 in /usr/local/lib/python3.12/dist-packages (from tensorboard~=2.19.0->tensorflow) (0.7.2)\n",
+            "Requirement already satisfied: werkzeug>=1.0.1 in /usr/local/lib/python3.12/dist-packages (from tensorboard~=2.19.0->tensorflow) (3.1.3)\n",
+            "Requirement already satisfied: MarkupSafe>=2.1.1 in /usr/local/lib/python3.12/dist-packages (from werkzeug>=1.0.1->tensorboard~=2.19.0->tensorflow) (3.0.3)\n",
+            "Requirement already satisfied: markdown-it-py>=2.2.0 in /usr/local/lib/python3.12/dist-packages (from rich->keras>=3.5.0->tensorflow) (4.0.0)\n",
+            "Requirement already satisfied: pygments<3.0.0,>=2.13.0 in /usr/local/lib/python3.12/dist-packages (from rich->keras>=3.5.0->tensorflow) (2.19.2)\n",
+            "Requirement already satisfied: mdurl~=0.1 in /usr/local/lib/python3.12/dist-packages (from markdown-it-py>=2.2.0->rich->keras>=3.5.0->tensorflow) (0.1.2)\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "import pandas as pd\n",
+        "import numpy as np\n",
+        "from sklearn.model_selection import train_test_split\n",
+        "from tensorflow.keras.models import Sequential\n",
+        "from tensorflow.keras.layers import Conv1D, MaxPooling1D, LSTM, Dense, Dropout\n",
+        "from tensorflow.keras.utils import to_categorical\n",
+        "from sklearn.preprocessing import StandardScaler\n",
+        "import numpy as np\n",
+        "\n",
+        "# 1️⃣ Clean and encode Gender\n",
+        "df['Gender'] = df['Gender'].astype(str).str.strip().str.title()  # Normalize text\n",
+        "df['Gender'] = df['Gender'].replace({'Female': 0, 'Male': 1}).astype(float)\n",
+        "\n",
+        "# 2️⃣ Handle missing values in Albumin_and_Globulin_Ratio\n",
+        "df['Albumin_and_Globulin_Ratio'] = df['Albumin_and_Globulin_Ratio'].fillna(df['Albumin_and_Globulin_Ratio'].mean())\n",
+        "\n",
+        "# 3️⃣ Double-check everything is numeric now\n",
+        "print(df.dtypes)\n",
+        "\n",
+        "# 4️⃣ Define features and target\n",
+        "features = df.drop(columns=['Dataset']).columns.tolist()\n",
+        "X = df[features].values\n",
+        "y = df['Dataset'].values\n",
+        "\n",
+        "# 5️⃣ Scale features\n",
+        "scaler = StandardScaler()\n",
+        "X_scaled = scaler.fit_transform(X)\n",
+        "\n",
+        "print(\"✅ All columns are numeric and scaling completed successfully!\")\n",
+        "\n",
+        "# --- 1. Data Loading and Preparation ---\n",
+        "\n",
+        "# Load the pre-processed data (contains only liver patients with engineered stages)\n",
+        "try:\n",
+        "    df = pd.read_csv('/content/indian_liver_patient .csv')\n",
+        "except FileNotFoundError:\n",
+        "    print(\"Error: '/content/indian_liver_patient .csv' not found. Please ensure the data preprocessing step was executed correctly.\")\n",
+        "    exit()\n",
+        "\n",
+        "# 1️⃣ Make sure Gender is numeric and missing values are handled\n",
+        "df['Gender'] = df['Gender'].astype(str).str.strip().str.title()\n",
+        "df['Gender'] = df['Gender'].replace({'Female': 0, 'Male': 1}).astype(float)\n",
+        "df['Albumin_and_Globulin_Ratio'] = df['Albumin_and_Globulin_Ratio'].fillna(df['Albumin_and_Globulin_Ratio'].mean())\n",
+        "\n",
+        "# 2️⃣ Define features and target NOW (after cleaning!)\n",
+        "features = df.drop(columns=['Dataset']).columns.tolist()\n",
+        "X = df[features].values\n",
+        "y = df['Dataset'].values\n",
+        "\n",
+        "# 3️⃣ Scale features\n",
+        "from sklearn.preprocessing import StandardScaler\n",
+        "scaler = StandardScaler()\n",
+        "X_scaled = scaler.fit_transform(X)\n",
+        "\n",
+        "print(\"✅ Scaling successful! All data is numeric.\")\n",
+        "\n",
+        "\n",
+        "# Reshape data for CNN-RNN ([samples, timesteps, features])\n",
+        "# We treat the sequence of lab values as 'timesteps'\n",
+        "timesteps = len(features)\n",
+        "input_features = 1\n",
+        "X_reshaped = X_scaled.reshape((X_scaled.shape[0], timesteps, input_features))\n",
+        "\n",
+        "# Split data\n",
+        "X_train, X_test, y_train, y_test = train_test_split(\n",
+        "    X_reshaped, y_categorical, test_size=0.2, random_state=42\n",
+        ")\n",
+        "\n",
+        "print(f\"Data ready. Input shape for CNN-RNN: {X_train.shape[1:]}\")\n",
+        "\n",
+        "\n",
+        "# --- 2. Stacked CNN-RNN Model Definition ---\n",
+        "\n",
+        "def create_cnn_rnn_model(input_shape, num_classes):\n",
+        "    \"\"\"\n",
+        "    Creates a Stacked Conv1D and LSTM model.\n",
+        "    Conv1D extracts local features from the lab sequence, LSTM learns sequence dependency.\n",
+        "    \"\"\"\n",
+        "    model = Sequential()\n",
+        "\n",
+        "    # 1. CNN Layer (Feature Extraction)\n",
+        "    model.add(Conv1D(\n",
+        "        filters=64,\n",
+        "        kernel_size=2,\n",
+        "        activation='relu',\n",
+        "        input_shape=input_shape\n",
+        "    ))\n",
+        "    model.add(MaxPooling1D(pool_size=2))\n",
+        "    model.add(Dropout(0.3))\n",
+        "\n",
+        "    # 2. RNN Layer (Sequence Learning)\n",
+        "    model.add(LSTM(\n",
+        "        units=100,\n",
+        "        return_sequences=False # False for classification output\n",
+        "    ))\n",
+        "    model.add(Dropout(0.3))\n",
+        "\n",
+        "    # 3. Output Layer\n",
+        "    model.add(Dense(num_classes, activation='softmax'))\n",
+        "\n",
+        "    model.compile(\n",
+        "        optimizer='adam',\n",
+        "        loss='categorical_crossentropy',\n",
+        "        metrics=['accuracy']\n",
+        "    )\n",
+        "    return model\n",
+        "\n",
+        "# Initialize the model\n",
+        "input_shape = (X_train.shape[1], X_train.shape[2])\n",
+        "model = create_cnn_rnn_model(input_shape, num_classes)\n",
+        "print(\"\\n--- Model Summary ---\")\n",
+        "model.summary()\n",
+        "\n",
+        "# --- 3. Model Training (Simulated for demonstration) ---\n",
+        "# NOTE: In a real project, uncomment the fit method below and run the training.\n",
+        "# print(\"\\n--- Starting Model Training ---\")\n",
+        "# history = model.fit(\n",
+        "#     X_train, y_train,\n",
+        "#     epochs=50,\n",
+        "#     batch_size=32,\n",
+        "#     validation_data=(X_test, y_test),\n",
+        "#     verbose=1\n",
+        "# )\n",
+        "\n",
+        "# For demonstration purposes without training, save and reload dummy weights\n",
+        "model.save_weights('dummy_weights.weights.h5')\n",
+        "model.load_weights('dummy_weights.weights.h5')\n",
+        "\n",
+        "print(\"\\nModel setup complete. (Dummy weights loaded/saved as training was skipped).\")\n",
+        "\n",
+        "\n",
+        "# --- 4. Prediction and Recommendation System ---\n",
+        "\n",
+        "def predict_cirrhosis_stage(model, data_point, scaler, label_encoder, features):\n",
+        "    \"\"\"\n",
+        "    Predicts the cirrhosis stage, severity, and provides a recommendation.\n",
+        "    \"\"\"\n",
+        "    # 1. Prepare and scale the input data\n",
+        "    new_X = np.array([data_point.get(f, 0) for f in features]).reshape(1, -1) # Use .get with default 0 safety\n",
+        "    new_X_scaled = scaler.transform(new_X)\n",
+        "\n",
+        "    # Reshape for CNN-RNN (1 sample, timesteps, input_features)\n",
+        "    timesteps = len(features)\n",
+        "    input_features = 1\n",
+        "    new_X_reshaped = new_X_scaled.reshape((1, timesteps, input_features))\n",
+        "\n",
+        "    # 2. Predict the stage probability\n",
+        "    prediction = model.predict(new_X_reshaped, verbose=0)\n",
+        "    predicted_class_index = np.argmax(prediction, axis=1)[0]\n",
+        "\n",
+        "    # 3. Decode the prediction\n",
+        "    # Inverse transform to get the original stage number (1, 2, or 3)\n",
+        "    predicted_stage_num = label_encoder.inverse_transform([predicted_class_index])[0]\n",
+        "\n",
+        "    # 4. Determine Severity and Recommendation (Business Logic)\n",
+        "    severity_map = {1: \"Low\", 2: \"Medium\", 3: \"Severe\"}\n",
+        "    recommendation_map = {\n",
+        "        1: \"Stage 1 (Low Risk): Eat properly, maintain a balanced lifestyle, and follow up with a physician as scheduled.\",\n",
+        "        2: \"Stage 2 (Medium Risk - Start Stage): Take care of health, ensure prescribed medicines are taken properly, and schedule check-ups monthly.\",\n",
+        "        3: \"Stage 3 (Severe Risk): Urgent specialist consultation is required. Surgery suggestion may be necessary. Check doctor weekly twice and strictly adhere to all medical instructions.\"\n",
+        "    }\n",
+        "\n",
+        "    result = {\n",
+        "        \"Predicted_Stage\": predicted_stage_num,\n",
+        "        \"Severity\": severity_map.get(predicted_stage_num, \"Unknown\"),\n",
+        "        \"Recommendation\": recommendation_map.get(predicted_stage_num, \"Consult a specialist.\")\n",
+        "    }\n",
+        "\n",
+        "    return result\n",
+        "\n",
+        "# --- Example Usage Demonstration ---\n",
+        "\n",
+        "# Sample New Lab Report Data (Must contain all 'features')\n",
+        "sample_patient_data = {\n",
+        "    'Age': 55,\n",
+        "    'Gender': 1, # Male\n",
+        "    'Total_Bilirubin': 1.5,\n",
+        "    'Direct_Bilirubin': 0.6,\n",
+        "    'Alkaline_Phosphotase': 200,\n",
+        "    'Alamine_Aminotransferase': 30,\n",
+        "    'Aspartate_Aminotransferase': 45,\n",
+        "    'Total_Protiens': 7.0,\n",
+        "    'Albumin': 3.5,\n",
+        "    'Albumin_and_Globulin_Ratio': 1.0\n",
+        "}\n",
+        "\n",
+        "result = predict_cirrhosis_stage(\n",
+        "    model,\n",
+        "    sample_patient_data,\n",
+        "    scaler,\n",
+        "    label_encoder,\n",
+        "    features\n",
+        ")\n",
+        "\n",
+        "print(\"\\n\\n--- Cirrhosis Prediction System Output ---\")\n",
+        "print(f\"Patient Lab Report Features: {list(sample_patient_data.keys())}\")\n",
+        "print(\"-\" * 40)\n",
+        "print(f\"Predicted Stage: Stage {result['Predicted_Stage']}\")\n",
+        "print(f\"Severity Level: {result['Severity']} Risk\")\n",
+        "print(f\"Recommendation: {result['Recommendation']}\")"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/",
+          "height": 879
+        },
+        "id": "sp3Jh3UbWFrt",
+        "outputId": "aa7d4273-3392-4980-9a78-5abbca06ad06"
+      },
+      "execution_count": 19,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Age                             int64\n",
+            "Gender                        float64\n",
+            "Total_Bilirubin               float64\n",
+            "Direct_Bilirubin              float64\n",
+            "Alkaline_Phosphotase            int64\n",
+            "Alamine_Aminotransferase        int64\n",
+            "Aspartate_Aminotransferase      int64\n",
+            "Total_Protiens                float64\n",
+            "Albumin                       float64\n",
+            "Albumin_and_Globulin_Ratio    float64\n",
+            "Dataset                         int64\n",
+            "dtype: object\n",
+            "✅ All columns are numeric and scaling completed successfully!\n",
+            "✅ Scaling successful! All data is numeric.\n",
+            "Data ready. Input shape for CNN-RNN: (10, 1)\n",
+            "\n",
+            "--- Model Summary ---\n"
+          ]
+        },
+        {
+          "output_type": "stream",
+          "name": "stderr",
+          "text": [
+            "/tmp/ipython-input-3545767951.py:42: FutureWarning: Downcasting behavior in `replace` is deprecated and will be removed in a future version. To retain the old behavior, explicitly call `result.infer_objects(copy=False)`. To opt-in to the future behavior, set `pd.set_option('future.no_silent_downcasting', True)`\n",
+            "  df['Gender'] = df['Gender'].replace({'Female': 0, 'Male': 1}).astype(float)\n",
+            "/usr/local/lib/python3.12/dist-packages/keras/src/layers/convolutional/base_conv.py:113: UserWarning: Do not pass an `input_shape`/`input_dim` argument to a layer. When using Sequential models, prefer using an `Input(shape)` object as the first layer in the model instead.\n",
+            "  super().__init__(activity_regularizer=activity_regularizer, **kwargs)\n"
+          ]
+        },
+        {
+          "output_type": "display_data",
+          "data": {
+            "text/plain": [
+              "\u001b[1mModel: \"sequential_1\"\u001b[0m\n"
+            ],
+            "text/html": [
+              "<pre style=\"white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace\"><span style=\"font-weight: bold\">Model: \"sequential_1\"</span>\n",
+              "</pre>\n"
+            ]
+          },
+          "metadata": {}
+        },
+        {
+          "output_type": "display_data",
+          "data": {
+            "text/plain": [
+              "┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━┓\n",
+              "┃\u001b[1m \u001b[0m\u001b[1mLayer (type)                   \u001b[0m\u001b[1m \u001b[0m┃\u001b[1m \u001b[0m\u001b[1mOutput Shape          \u001b[0m\u001b[1m \u001b[0m┃\u001b[1m \u001b[0m\u001b[1m      Param #\u001b[0m\u001b[1m \u001b[0m┃\n",
+              "┡━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━┩\n",
+              "│ conv1d_1 (\u001b[38;5;33mConv1D\u001b[0m)               │ (\u001b[38;5;45mNone\u001b[0m, \u001b[38;5;34m9\u001b[0m, \u001b[38;5;34m64\u001b[0m)          │           \u001b[38;5;34m192\u001b[0m │\n",
+              "├─────────────────────────────────┼────────────────────────┼───────────────┤\n",
+              "│ max_pooling1d_1 (\u001b[38;5;33mMaxPooling1D\u001b[0m)  │ (\u001b[38;5;45mNone\u001b[0m, \u001b[38;5;34m4\u001b[0m, \u001b[38;5;34m64\u001b[0m)          │             \u001b[38;5;34m0\u001b[0m │\n",
+              "├─────────────────────────────────┼────────────────────────┼───────────────┤\n",
+              "│ dropout_2 (\u001b[38;5;33mDropout\u001b[0m)             │ (\u001b[38;5;45mNone\u001b[0m, \u001b[38;5;34m4\u001b[0m, \u001b[38;5;34m64\u001b[0m)          │             \u001b[38;5;34m0\u001b[0m │\n",
+              "├─────────────────────────────────┼────────────────────────┼───────────────┤\n",
+              "│ lstm_1 (\u001b[38;5;33mLSTM\u001b[0m)                   │ (\u001b[38;5;45mNone\u001b[0m, \u001b[38;5;34m100\u001b[0m)            │        \u001b[38;5;34m66,000\u001b[0m │\n",
+              "├─────────────────────────────────┼────────────────────────┼───────────────┤\n",
+              "│ dropout_3 (\u001b[38;5;33mDropout\u001b[0m)             │ (\u001b[38;5;45mNone\u001b[0m, \u001b[38;5;34m100\u001b[0m)            │             \u001b[38;5;34m0\u001b[0m │\n",
+              "├─────────────────────────────────┼────────────────────────┼───────────────┤\n",
+              "│ dense_1 (\u001b[38;5;33mDense\u001b[0m)                 │ (\u001b[38;5;45mNone\u001b[0m, \u001b[38;5;34m2\u001b[0m)              │           \u001b[38;5;34m202\u001b[0m │\n",
+              "└─────────────────────────────────┴────────────────────────┴───────────────┘\n"
+            ],
+            "text/html": [
+              "<pre style=\"white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace\">┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━┓\n",
+              "┃<span style=\"font-weight: bold\"> Layer (type)                    </span>┃<span style=\"font-weight: bold\"> Output Shape           </span>┃<span style=\"font-weight: bold\">       Param # </span>┃\n",
+              "┡━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━┩\n",
+              "│ conv1d_1 (<span style=\"color: #0087ff; text-decoration-color: #0087ff\">Conv1D</span>)               │ (<span style=\"color: #00d7ff; text-decoration-color: #00d7ff\">None</span>, <span style=\"color: #00af00; text-decoration-color: #00af00\">9</span>, <span style=\"color: #00af00; text-decoration-color: #00af00\">64</span>)          │           <span style=\"color: #00af00; text-decoration-color: #00af00\">192</span> │\n",
+              "├─────────────────────────────────┼────────────────────────┼───────────────┤\n",
+              "│ max_pooling1d_1 (<span style=\"color: #0087ff; text-decoration-color: #0087ff\">MaxPooling1D</span>)  │ (<span style=\"color: #00d7ff; text-decoration-color: #00d7ff\">None</span>, <span style=\"color: #00af00; text-decoration-color: #00af00\">4</span>, <span style=\"color: #00af00; text-decoration-color: #00af00\">64</span>)          │             <span style=\"color: #00af00; text-decoration-color: #00af00\">0</span> │\n",
+              "├─────────────────────────────────┼────────────────────────┼───────────────┤\n",
+              "│ dropout_2 (<span style=\"color: #0087ff; text-decoration-color: #0087ff\">Dropout</span>)             │ (<span style=\"color: #00d7ff; text-decoration-color: #00d7ff\">None</span>, <span style=\"color: #00af00; text-decoration-color: #00af00\">4</span>, <span style=\"color: #00af00; text-decoration-color: #00af00\">64</span>)          │             <span style=\"color: #00af00; text-decoration-color: #00af00\">0</span> │\n",
+              "├─────────────────────────────────┼────────────────────────┼───────────────┤\n",
+              "│ lstm_1 (<span style=\"color: #0087ff; text-decoration-color: #0087ff\">LSTM</span>)                   │ (<span style=\"color: #00d7ff; text-decoration-color: #00d7ff\">None</span>, <span style=\"color: #00af00; text-decoration-color: #00af00\">100</span>)            │        <span style=\"color: #00af00; text-decoration-color: #00af00\">66,000</span> │\n",
+              "├─────────────────────────────────┼────────────────────────┼───────────────┤\n",
+              "│ dropout_3 (<span style=\"color: #0087ff; text-decoration-color: #0087ff\">Dropout</span>)             │ (<span style=\"color: #00d7ff; text-decoration-color: #00d7ff\">None</span>, <span style=\"color: #00af00; text-decoration-color: #00af00\">100</span>)            │             <span style=\"color: #00af00; text-decoration-color: #00af00\">0</span> │\n",
+              "├─────────────────────────────────┼────────────────────────┼───────────────┤\n",
+              "│ dense_1 (<span style=\"color: #0087ff; text-decoration-color: #0087ff\">Dense</span>)                 │ (<span style=\"color: #00d7ff; text-decoration-color: #00d7ff\">None</span>, <span style=\"color: #00af00; text-decoration-color: #00af00\">2</span>)              │           <span style=\"color: #00af00; text-decoration-color: #00af00\">202</span> │\n",
+              "└─────────────────────────────────┴────────────────────────┴───────────────┘\n",
+              "</pre>\n"
+            ]
+          },
+          "metadata": {}
+        },
+        {
+          "output_type": "display_data",
+          "data": {
+            "text/plain": [
+              "\u001b[1m Total params: \u001b[0m\u001b[38;5;34m66,394\u001b[0m (259.35 KB)\n"
+            ],
+            "text/html": [
+              "<pre style=\"white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace\"><span style=\"font-weight: bold\"> Total params: </span><span style=\"color: #00af00; text-decoration-color: #00af00\">66,394</span> (259.35 KB)\n",
+              "</pre>\n"
+            ]
+          },
+          "metadata": {}
+        },
+        {
+          "output_type": "display_data",
+          "data": {
+            "text/plain": [
+              "\u001b[1m Trainable params: \u001b[0m\u001b[38;5;34m66,394\u001b[0m (259.35 KB)\n"
+            ],
+            "text/html": [
+              "<pre style=\"white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace\"><span style=\"font-weight: bold\"> Trainable params: </span><span style=\"color: #00af00; text-decoration-color: #00af00\">66,394</span> (259.35 KB)\n",
+              "</pre>\n"
+            ]
+          },
+          "metadata": {}
+        },
+        {
+          "output_type": "display_data",
+          "data": {
+            "text/plain": [
+              "\u001b[1m Non-trainable params: \u001b[0m\u001b[38;5;34m0\u001b[0m (0.00 B)\n"
+            ],
+            "text/html": [
+              "<pre style=\"white-space:pre;overflow-x:auto;line-height:normal;font-family:Menlo,'DejaVu Sans Mono',consolas,'Courier New',monospace\"><span style=\"font-weight: bold\"> Non-trainable params: </span><span style=\"color: #00af00; text-decoration-color: #00af00\">0</span> (0.00 B)\n",
+              "</pre>\n"
+            ]
+          },
+          "metadata": {}
+        },
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "\n",
+            "Model setup complete. (Dummy weights loaded/saved as training was skipped).\n",
+            "\n",
+            "\n",
+            "--- Cirrhosis Prediction System Output ---\n",
+            "Patient Lab Report Features: ['Age', 'Gender', 'Total_Bilirubin', 'Direct_Bilirubin', 'Alkaline_Phosphotase', 'Alamine_Aminotransferase', 'Aspartate_Aminotransferase', 'Total_Protiens', 'Albumin', 'Albumin_and_Globulin_Ratio']\n",
+            "----------------------------------------\n",
+            "Predicted Stage: Stage 2\n",
+            "Severity Level: Medium Risk\n",
+            "Recommendation: Stage 2 (Medium Risk - Start Stage): Take care of health, ensure prescribed medicines are taken properly, and schedule check-ups monthly.\n"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "\n",
+        "\n"
+      ],
+      "metadata": {
+        "id": "uaSSi1jQW2xm"
+      },
+      "execution_count": 19,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [],
+      "metadata": {
+        "id": "d_lKseD6YsGf"
+      },
+      "execution_count": 19,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [],
+      "metadata": {
+        "id": "ei90YW0-cQlH"
+      },
+      "execution_count": null,
+      "outputs": []
+    }
+  ]
+}
